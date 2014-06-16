@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Formulario de Login</title>
+        <h:outputStylesheet library="css" name="main.css"/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    </h:head>
+    <h:body>
+            <nav class="navbar navbar-default" role="navigation">
+                  <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">RUTAS DAW</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav">
+                        <li class="active"><a href="/rutas/">Inicio</a></li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rutas <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=senderismo">Senderismo</a></li>
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=mountain">Mountain Bike</a></li>
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=caballo">A caballo</a></li>
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=offroad">Offroad 4x4</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                        <li><h:link outcome="registro" value="Registro" /></li>
+                        <li><h:link outcome="users/index" value="Login" /></li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+        <section class="row">
+            <div class="col-md-4 col-md-offset-4 formulario">
+                <h1>Formulario de Acceso</h1>
+                <form method="POST" action="j_security_check">
+                    <label>DNI:</label>  <input type="text" name="j_username"/>
+                    <label>Password: </label> <input type="password" name="j_password" />
+                    <br />
+                    <div class="boton">
+                        <input class="btn" type="submit" value="Login" />
+                        <input class="btn" type="reset" value="Reset" />
+                    </div>
+                </form> 
+            </div>
+        </section>
+    </h:body>
+</html>
+
+
+

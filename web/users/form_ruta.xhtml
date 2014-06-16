@@ -1,0 +1,91 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+        <ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/WEB-INF/plantilla.xhtml">
+
+       <ui:define name="cabecera">
+                <nav class="navbar navbar-default" role="navigation">
+                  <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">RUTAS DAW</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav">
+                        <li class="active"><a href="/rutas/">Inicio</a></li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rutas <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=senderismo">Senderismo</a></li>
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=mountain">Mountain Bike</a></li>
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=caballo">A caballo</a></li>
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=offroad">Offroad 4x4</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                          <li><h:button value="Crear ruta" class="btn boton_menu" outcome="form_ruta" /></li>
+                        <li><h:button value="Editar perfil" class="btn boton_menu" outcome="visualiza" >
+                                <f:param name="id" value="#{controladorUsuario.usu.id}" /></h:button></li>
+                        <li><h:form><h:commandButton class="btn boton_menu" value="Logout" action="#{controladorUsuario.logout}"/></h:form></li>
+                        <li><h:graphicImage class="profile pequeno" value="/resources/profiles/#{controladorUsuario.usu.id}.jpg" /></li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+            </ui:define>
+            <ui:define name="metadata">
+              <f:metadata>
+                  <!--<f:viewParam name="dni" value="#{request.userPrincipal.name}" />-->
+                <f:viewAction action="#{controladorUsuario.recuperaPorDni()}" />
+            </f:metadata>  
+            </ui:define>
+            
+            <ui:define name="form_ruta">
+                <div class="col-md-4 col-md-offset-4 formulario">
+                    <h1>Crear nueva ruta</h1>
+                    <h:form id="form" enctype="multipart/form-data" prependId="false">
+                        <label>Nombre:</label> <h:inputText label="Nombre" id="idNombre"
+                                            value="#{controladorRuta.rut.nombre}" required="true">
+                            </h:inputText>
+                        <label>Tipo:</label> <h:inputText label="Tipo" id="tipo"
+                                            value="#{controladorRuta.rut.tipo}" required="true">
+                            </h:inputText>
+                        <label>Fecha:</label> <h:inputText label="Fecha" id="fecha"
+                                            value="#{controladorRuta.rut.fecha}" required="true">
+                            <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                            </h:inputText>
+                        <label>Origen:</label> <h:inputText label="Origen" id="origen"
+                                            value="#{controladorRuta.rut.origen}" required="true">
+                            </h:inputText>
+                        <label>Destino:</label> <h:inputText label="Destino" id="destino"
+                                            value="#{controladorRuta.rut.destino}" required="true">
+                            </h:inputText>
+                        <label>Distancia:</label> <h:inputText label="Distancia" id="distancia"
+                                            value="#{controladorRuta.rut.distancia}" required="true">
+                            </h:inputText>
+                       <h:message for="idNombre" class="warn" /><br/>
+                       <h:inputFile id="file" value="#{controladorRuta.file}"/>
+                        <div class="boton">
+                           <h:commandButton class="btn" value="Guardar" action="#{controladorRuta.crea}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+            
+            
+            
+            
+    </ui:composition>
+</html>
+

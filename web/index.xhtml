@@ -1,0 +1,127 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+        <ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/WEB-INF/plantilla.xhtml">
+
+            <ui:define name="cabecera">
+                <nav class="navbar navbar-default" role="navigation">
+                  <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">RUTAS DAW</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav">
+                        <li class="active"><a href="/rutas/">Inicio</a></li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rutas <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=senderismo">Senderismo</a></li>
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=mountain">Mountain Bike</a></li>
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=caballo">A caballo</a></li>
+                            <li><a href="/rutas/faces/rutas/listaRutas.xhtml?tipo=offroad">Offroad 4x4</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                        <li><h:link outcome="registro" value="Registro" /></li>
+                        <li><h:link outcome="users/index" value="Login" /></li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+            </ui:define>
+            
+            <ui:define name="slide">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                      <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                      <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                      <div class="item active">
+                          <h:graphicImage value="/resources/images/slider2.jpg" />
+                        <div class="carousel-caption">
+                          <h3>Rutas Mountain Bike</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, mollitia laborum soluta facilis aliquam dicta blanditiis commodi enim corporis quasi ut eum ea doloremque labore deleniti ipsam quos nostrum fuga.</p>
+                          </div>
+                      </div>
+                      <div class="item">
+                        <h:graphicImage value="/resources/images/slider1.jpg" />
+                        <div class="carousel-caption">
+                          <h3>Rutas OffRoad 4x4</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, mollitia laborum soluta facilis aliquam dicta blanditiis commodi enim corporis quasi ut eum ea doloremque labore deleniti ipsam quos nostrum fuga.</p>
+                        </div>
+                      </div>
+                        <div class="item">
+                        <h:graphicImage value="/resources/images/slider3.jpg" />
+                        <div class="carousel-caption">
+                          <h3>Senderismo</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, mollitia laborum soluta facilis aliquam dicta blanditiis commodi enim corporis quasi ut eum ea doloremque labore deleniti ipsam quos nostrum fuga.</p>
+                          </div>
+                      </div>
+                        <div class="item">
+                        <h:graphicImage value="/resources/images/slider4.jpg" />
+                        <div class="carousel-caption">
+                          <h3>Rutas a caballo</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, mollitia laborum soluta facilis aliquam dicta blanditiis commodi enim corporis quasi ut eum ea doloremque labore deleniti ipsam quos nostrum fuga.</p>
+                          </div>
+                      </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                      <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                      <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </ui:define>
+            
+            <ui:define name="populares">
+                <div class="populares">
+                    <h2>Rutas populares</h2>
+                    <h:dataTable id="populares" var="pop" value="#{controladorRuta.populares}">
+                        <h:column>
+                            <article>
+                                <div class="cont_centrar">
+                                    <h:graphicImage value="/resources/images/mountain.jpg" />
+                                </div>
+                                <h2>#{pop.nombre}</h2>
+                                <p>
+                                    Valoración: #{pop.valoracion}
+                                </p>
+                                <div class="cont_centrar">
+                                    <h:button class="btn" value="Ver más" outcome="/rutas/visualiza?id=#{pop.id}"/>
+                                </div>
+                            </article>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </ui:define>
+            <ui:define name="footer">
+                <div class="pie">
+                    <p>Todos los derechos reservados</p>
+                </div>
+            </ui:define>
+    </ui:composition>
+    <!--<h:body>
+        <h:link outcome="admin/index" value="To the admin section" /><br />
+        <h:link outcome="users/index" value="To the user section" />
+    </h:body>-->
+</html>
+

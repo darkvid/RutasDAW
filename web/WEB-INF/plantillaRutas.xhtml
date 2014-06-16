@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="main.css"/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8" />
+</h:head>
+<h:body lang="es">
+<header id="header">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">RUTAS DAW</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="http://localhost:8080/rutas/">Inicio</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rutas <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Senderismo</a></li>
+                <li><a href="#">Bicicleta</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Mountain Bike</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li><h:button rendered="#{controladorUsuario.logueado}" value="Crear ruta" class="btn boton_menu" outcome="..//form_ruta" /></li>
+            <li><h:button value="Editar perfil" class="btn boton_menu" outcome="visualiza" >
+                    <f:param name="id" value="#{controladorUsuario.usu.id}" /></h:button></li>
+            <li><h:form><h:commandButton class="btn boton_menu" value="Logout" action="#{controladorUsuario.logout}"/></h:form></li>
+            <li><h:graphicImage class="profile pequeno" value="/resources/profiles/#{controladorUsuario.usu.id}.jpg" /></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+</header>
+<main>
+    <section>
+                
+        <ui:insert name="metadata"/>    
+        
+        <ui:insert name="form_registro"/>
+        <ui:insert name="populares"/>
+    </section>
+</main>
+<footer id="footer">
+    <ui:insert name="footer"/>
+</footer>
+</h:body>
+</html>

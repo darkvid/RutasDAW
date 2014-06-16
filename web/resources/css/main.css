@@ -1,0 +1,131 @@
+body main{
+    max-width: 1200px;
+    margin: auto;
+}
+
+#map-canvas{
+    height: 500px;
+    width: 800px;
+    margin: 0px;
+    padding: 0px
+}
+
+.boton_menu{
+    margin: .5em;
+}
+
+.profile{
+    border-radius: 50%;
+}
+
+.pequeno{
+    width: 50px;
+    height: 50px;
+}
+
+.imagen{
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.grande{
+    width: 100px;
+    height: 100px;
+}
+
+.apuntados{
+    position: absolute;
+    right: 100px;
+    top: 50px;
+    width: 50px;
+}
+
+section .formulario_baja{
+    margin-top: 2em;
+    text-align: center;
+}
+
+section .formulario{
+    border: 1px solid black;
+    padding: 1% 2%;
+    border-radius: 20px 0 20px 0;
+}
+
+section .formulario h1{
+    text-align: center;
+    padding: 0;
+}
+
+section .formulario label{
+    width: 50%;
+}
+
+section .formulario input{
+    width: 40%;
+}
+
+section .formulario .warn{
+    color: red;
+}
+
+section .formulario #file{
+    width: 100%;
+}
+
+section .populares{
+    overflow: hidden;
+    margin-top: 1em;
+}
+
+section .populares article{
+    float: left;
+    width: 24%;
+}
+
+section .populares .cont_centrar{
+    text-align: center;
+}
+
+section #populares{
+    overflow:hidden;
+    width: 100%;
+}
+
+section #populares tbody{
+    width: 100%;
+}
+
+section #populares tr{
+    text-align: center;
+    width: 25%;
+    float: left;
+}
+
+section #populares tr article{
+    width: 100%;
+}
+
+section .populares article img, section .detalleRuta img{
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: .25em;
+    width: 150px;
+    height: 150px;
+}
+
+section .formulario .boton{
+    text-align: center;
+    margin-top: 1em;
+}
+
+footer .pie{
+    text-align: center;
+    background-color: #DDDDDC;
+    margin-top: 1em;
+    padding: 1em;
+}
+
+footer .pie p{
+    margin: 0;
+    padding: 0;
+}

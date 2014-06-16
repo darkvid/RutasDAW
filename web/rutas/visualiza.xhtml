@@ -1,0 +1,162 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+        <ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/WEB-INF/plantilla.xhtml">
+
+        <ui:define name="cabecera">
+            <nav class="navbar navbar-default" role="navigation">
+              <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">RUTAS DAW</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="/rutas">Inicio</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rutas <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">Senderismo</a></li>
+                        <li><a href="#">Bicicleta</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Mountain Bike</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                        <li><h:button value="Volver atrás" class="btn boton_menu" outcome="/users/index.xhtml" >
+                                <f:param name="id" value="#{controladorUsuario.usu.id}" /></h:button></li>
+                      </ul>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+            </nav>
+        </ui:define>
+            <ui:define name="metadata">
+              <f:metadata>
+                <f:viewParam name="id" value="#{controladorRuta.rut.id}"/>
+                <f:viewAction action="#{controladorRuta.recupera()}" />
+            </f:metadata>               
+            </ui:define>
+            <ui:define name="datos_ruta">
+                <section>
+                    
+                    <div class="detalleRuta col-md-3">
+                        <h1>#{controladorRuta.rut.nombre}</h1>
+                        <h:graphicImage value="/resources/images/mountain.jpg" />
+                        <p>Tipo: #{controladorRuta.rut.tipo}</p>
+                        <p>Fecha:  #{controladorRuta.rut.fecha}</p>
+                        <p>Origen: #{controladorRuta.rut.origen}</p>
+                        <p>Destino: #{controladorRuta.rut.destino}</p>
+                        <p>valoracion: #{controladorRuta.rut.valoracion}</p>
+                        <p>distancia: #{controladorRuta.rut.distancia}</p>
+                        <p><a download="ruta.kml" href="/rutas/resources/kml/#{controladorRuta.rut.id}.kml">Descargar fichero</a></p>
+                        <p:commandButton action="#{controladorRuta.unirse()}" oncomplete="dialogo('Te hemos apuntado a la ruta')" value="Unirse a la ruta"/>
+                        
+                        <h:form id="form">
+
+                            <p:growl id="messages" showDetail="false"/>
+
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Actual: " />
+                                <p:rating value="#{controladorRuta.valoracion}" />
+                            </h:panelGrid>
+
+                            <p:commandButton action="#{controladorRuta.valorar()}" oncomplete="dialogo('Se ha valorado correctamente')" value="Valorar"/>
+
+                        </h:form>
+                    </div>
+                    
+                    <script>
+                        var id_ruta = #{controladorRuta.rut.id};
+                        var url = "http://localhost:8080/rutas/rest/kml/"+id_ruta;
+                        var puntos;
+                        
+        
+                        function initialize() {
+                        var center = new google.maps.LatLng(puntos[0].latitud, puntos[0].longitud);
+                        var mapOptions = {
+                            center:center, 
+                            zoom: 13,
+                            mapTypeId: google.maps.MapTypeId.TERRAIN
+                        };
+
+                        var map = new google.maps.Map(document.getElementById('map-canvas'),
+                            mapOptions);
+
+                        //añado marcador del principio y final
+                        var inicio = new google.maps.LatLng(puntos[0].latitud, puntos[0].longitud);
+                        var final = new google.maps.LatLng(puntos[puntos.length-1].latitud, puntos[puntos.length-1].longitud);
+                        var marker = new google.maps.Marker({
+                            position: inicio,
+                            map: map,
+                            title: 'Inicio'
+                        });
+                        var marker = new google.maps.Marker({
+                            position: final,
+                            map: map,
+                            title: 'Final'
+                        });
+
+                        var flightPlanCoordinates = new Array();
+                        for(var i=0;i&lt;puntos.length;i++){
+                            flightPlanCoordinates.push(new google.maps.LatLng(puntos[i].latitud,puntos[i].longitud));
+                        }
+
+                        var flightPath = new google.maps.Polyline({
+                          path: flightPlanCoordinates,
+                          geodesic: true,
+                          strokeColor: '#FF0000',
+                          strokeOpacity: 1.0,
+                          strokeWeight: 2
+                        });
+
+                        flightPath.setMap(map);
+                      }
+
+                      $(document).ready(function() {
+                            $.ajax({
+                                url: url
+                            }).then(function(data) {
+                                puntos = data;
+                                initialize();
+                            });
+                        });
+                      //setTimeout(initialize,1000);
+                    </script>
+                    
+    
+  
+  
+                <h2>Mapa de la ruta</h2>
+            <div id="map-canvas"></div>
+            <div class="apuntados">
+                <h3>Apuntados</h3>
+                <h:dataTable id="usuarios" var="pop" value="#{controladorRuta.participantes}">
+                    <h:column>
+                        <h4>#{pop.nombre}</h4>
+                    </h:column>
+                </h:dataTable>
+            </div>
+                    
+                </section>
+            </ui:define>
+            <ui:define name="footer">
+                <div class="pie">
+                    <p>Todos los derechos reservados</p>
+                </div>
+            </ui:define>
+    </ui:composition>
+    
+</html>
+
